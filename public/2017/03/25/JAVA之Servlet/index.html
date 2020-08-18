@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Terry Tian" />
+
+
+
+<meta name="description" content="Servlet 简介
+Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。
+
+Servlet 任务
+
+读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单。
+读取客户端（浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA学习之Servlet">
+<meta property="og:url" content="http://tianqing.work/2017/03/25/JAVA之Servlet/index.html">
+<meta property="og:site_name" content="Terry_Tian's Code日志">
+<meta property="og:description" content="Servlet 简介
+Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。
+
+Servlet 任务
+
+读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单。
+读取客户端（浏览器">
+<meta property="og:updated_time" content="2017-04-15T09:25:40.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA学习之Servlet">
+<meta name="twitter:description" content="Servlet 简介
+Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。
+
+Servlet 任务
+
+读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单。
+读取客户端（浏览器">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Terry_Tian&#39;s Code日志" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JAVA学习之Servlet | Terry_Tian&#39;s Code日志</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Terry Tian</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行是知之始，知是行之成。</p>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于JAVA</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Terry Tian</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Terry Tian</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行是知之始，知是行之成。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JAVA之Servlet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/25/JAVA之Servlet/" class="article-date">
+      <time datetime="2017-03-25T15:31:16.000Z" itemprop="datePublished">2017-03-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA学习之Servlet
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Servlet/">Servlet</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <excerpt in="" index="" |="" 首页摘要="">
+
+<h1 id="Servlet-简介"><a href="#Servlet-简介" class="headerlink" title="Servlet 简介"></a>Servlet 简介</h1><blockquote>
+<p>Java Servlet 是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
+</blockquote>
+<p><strong>Servlet 任务</strong></p>
+<ul>
+<li>读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单。</li>
+<li>读取客户端（浏览器）发送的隐式的 HTTP 请求数据。这包括 cookies、媒体类型和浏览器能理解的压缩格式等等。</li>
+<li>处理数据并生成结果。这个过程可能需要访问数据库，执行 RMI 或 CORBA 调用，调用 Web 服务，或者直接计算得出对应的响应。</li>
+<li>发送显式的数据（即文档）到客户端（浏览器）。该文档的格式可以是多种多样的，包括文本文件（HTML 或 XML）、二进制文件（GIF 图像）、Excel 等。</li>
+<li>发送隐式的 HTTP 响应到客户端（浏览器）。这包括告诉浏览器或其他客户端被返回的文档类型（例如 HTML），设置 cookies 和缓存参数，以及其他类似的任务。</li>
+</ul>
+<a id="more"></a> 
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h1 id="Servlet-生命周期"><a href="#Servlet-生命周期" class="headerlink" title="Servlet 生命周期"></a>Servlet 生命周期</h1><pre><code>public class ServletDemo1 implements Servlet{
+
+//Servlet生命周期方法
+//实例化
+//在Servlet第一次访问时调用
+public ServletDemo1(){
+    System.out.println(&quot;*************ServletDemo1执行了***************&quot;);
+}
+//Servlet生命周期方法
+//初始化
+//在Servlet第一次访问时调用,在后续每次用户请求时不再调用
+@Override
+public void init(ServletConfig arg0) throws ServletException {
+    System.out.println(&quot;*************init执行了***************&quot;);
+
+}
+//Servlet生命周期方法
+//服务
+//每次访问时都调用
+@Override
+public void service(ServletRequest arg0, ServletResponse arg1)
+        throws ServletException, IOException {
+    System.out.println(&quot;*************service执行了***************&quot;);
+}
+//Servlet生命周期方法
+//销毁
+@Override
+public void destroy() {
+    System.out.println(&quot;*************destroy执行了***************&quot;);
+
+}
+
+@Override
+public ServletConfig getServletConfig() {
+    // TODO Auto-generated method stub
+    return null;
+}
+
+@Override
+public String getServletInfo() {
+    // TODO Auto-generated method stub
+    return null;
+}
+
+
+}
+</code></pre><h1 id="HTTP-状态码"><a href="#HTTP-状态码" class="headerlink" title="HTTP 状态码"></a>HTTP 状态码</h1><table><tr><td>代码</td><td>    消息</td><td>    描述</td></tr><br><tr><td>100</td><td>    Continue    </td><td>只有请求的一部分已经被服务器接收，但只要它没有被拒绝，客户端应继续该请求。</td></tr><br><tr><td>101    </td><td>Switching Protocols</td><td>    服务器切换协议。</td></tr><br><tr><td>200</td><td>    OK</td><td>    请求成功。</td></tr><br><tr><td>201    </td><td>Created</td><td>    该请求是完整的，并创建一个新的资源。</td></tr><br><tr><td>202    </td><td>Accepted    </td><td>该请求被接受处理，但是该处理是不完整的。</td></tr><br><tr><td>203    </td><td>Non-authoritative Information    </td><td> </td></tr><br><tr><td>204    </td><td>No Content     </td><td></td></tr><br><tr><td>205    </td><td>Reset Content     </td><td></td></tr><br><tr><td>206    </td><td>Partial Content    </td><td> </td></tr><br><tr><td>300    </td><td>Multiple Choices</td><td>    链接列表。用户可以选择一个链接，进入到该位置。最多五个地址。</td></tr><br><tr><td>301    </td><td>Moved Permanently    </td><td>所请求的页面已经转移到一个新的 URL。</td></tr><br><tr><td>302    </td><td>Found    </td><td>所请求的页面已经临时转移到一个新的 URL。</td></tr><br><tr><td>303    </td><td>See Other    </td><td>所请求的页面可以在另一个不同的 URL 下被找到。</td></tr><br><tr><td>304    </td><td>Not Modified    </td><td> </td></tr><br><tr><td>305    </td><td>Use Proxy     </td><td></td></tr><br><tr><td>306    </td><td>Unused    </td><td>在以前的版本中使用该代码。现在已不再使用它，但代码仍被保留。</td></tr><br><tr><td>307    </td><td>Temporary Redirect</td><td>    所请求的页面已经临时转移到一个新的 URL。</td></tr><br><tr><td>400    </td><td>Bad Request</td><td>    服务器不理解请求。</td></tr><br><tr><td>401    </td><td>Unauthorized</td><td>    所请求的页面需要用户名和密码。</td></tr><br><tr><td>402    </td><td>Payment Required</td><td>    您还不能使用该代码。</td></tr><br><tr><td>403    </td><td>Forbidden</td><td>    禁止访问所请求的页面。</td></tr><br><tr><td>404    </td><td>Not Found    </td><td>服务器无法找到所请求的页面。.</td></tr><br><tr><td>405    </td><td>Method Not Allowed    </td><td>在请求中指定的方法是不允许的。</td></tr><br><tr><td>406    </td><td>Not Acceptable    </td><td>服务器只生成一个不被客户端接受的响应。</td></tr><br><tr><td>407    </td><td>Proxy Authentication Required    </td><td>在请求送达之前，您必须使用代理服务器的验证。</td></tr><br><tr><td>408    </td><td>Request Timeout    </td><td>请求需要的时间比服务器能够等待的时间长，超时。</td></tr><br><tr><td>409    </td><td>Conflict    </td><td>请求因为冲突无法完成。</td></tr><br><tr><td>410    </td><td>Gone    </td><td>所请求的页面不再可用。</td></tr><br><tr><td>411    </td><td>Length Required    </td><td>“Content-Length” 未定义。服务器无法处理客户端发送的不带 Content-Length 的请求信息。</td></tr><br><tr><td>412    </td><td>Precondition Failed    </td><td>请求中给出的先决条件被服务器评估为 false。</td></tr><br><tr><td>413    </td><td>Request Entity Too Large    </td><td>服务器不接受该请求，因为请求实体过大。</td></tr><br><tr><td>414    </td><td>Request-url Too Long    </td><td>服务器不接受该请求，因为 URL 太长。当您转换一个 “post” 请求为一个带有长的查询信息的 “get” 请求时发生。</td></tr><br><tr><td>415    </td><td>Unsupported Media Type    </td><td>服务器不接受该请求，因为媒体类型不被支持。</td></tr><br><tr><td>417    </td><td>Expectation Failed     </td><td></td></tr><br><tr><td>500    </td><td>Internal Server Error    </td><td>未完成的请求。服务器遇到了一个意外的情况。</td></tr><br><tr><td>501    </td><td>Not Implemented    </td><td>未完成的请求。服务器不支持所需的功能。</td></tr><br><tr><td>502    </td><td>Bad Gateway    </td><td>未完成的请求。服务器从上游服务器收到无效响应。</td></tr><br><tr><td>503    </td><td>Service Unavailable    </td><td>未完成的请求。服务器暂时超载或死机。</td></tr><br><tr><td>504    </td><td>Gateway Timeout    </td><td>网关超时。</td></tr><br><tr><td>505    </td><td>HTTP Version Not Supported</td><td>    服务器不支持”HTTP协议”版本。</td></tr><br></table>
+
+<h2 id="设置-HTTP-状态代码的方法"><a href="#设置-HTTP-状态代码的方法" class="headerlink" title="设置 HTTP 状态代码的方法"></a>设置 HTTP 状态代码的方法</h2><table><br><tr><td>序号</td><td>    方法 &amp; 描述</td></tr><br><tr><td>1    public void setStatus ( int statusCode )</td><td><br>该方法设置一个任意的状态码。setStatus 方法接受一个 int（状态码）作为参数。如果您的反应包含了一个特殊的状态码和文档，请确保在使用 PrintWriter 实际返回任何内容之前调用 setStatus。</td></tr><br><tr><td>2    public void sendRedirect(String url)</td><td><br>该方法生成一个 302 响应，连同一个带有新文档 URL 的 Location 头。</td></tr><br><tr><td>3    public void sendError(int code, String message)</td><td><br>该方法发送一个状态码（通常为 404），连同一个在 HTML 文档内部自动格式化并发送到客户端的短消息。</td></tr><br></table>
+
+<h2 id="HTTP-状态码实例"><a href="#HTTP-状态码实例" class="headerlink" title="HTTP 状态码实例"></a>HTTP 状态码实例</h2><pre><code>// 扩展 HttpServlet 类
+public class showError extends HttpServlet {
+
+// 处理 GET 方法请求的方法
+public void doGet(HttpServletRequest request,
+                HttpServletResponse response)
+        throws ServletException, IOException
+ {
+  // 设置错误代码和原因
+  response.sendError(407, &quot;Need authentication!!!&quot; );
+ }
+// 处理 POST 方法请求的方法
+public void doPost(HttpServletRequest request,
+                 HttpServletResponse response)
+  throws ServletException, IOException {
+ doGet(request, response);
+}
+}
+</code></pre><h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p><em>Cookie实例：</em></p>
+<pre><code>public class Cookie01 extends HttpServlet {
+
+public void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    doPost(request, response);
+}
+public void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    getCookie(request, response);
+}
+//通过Servlet获取Cookie
+private void getCookie(HttpServletRequest request,
+        HttpServletResponse response) throws UnsupportedEncodingException {
+    Cookie cookie = null;
+    Cookie[] cookies = null;
+    // 获取与该域相关的 Cookie 的数组
+    cookies = request.getCookies();
+
+     // 设置响应内容类型
+     response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+
+      if( cookies != null ){
+        for (int i = 0; i &lt; cookies.length; i++){
+           cookie = cookies[i];
+           if((cookie.getName( )).compareTo(&quot;name&quot;) == 0 ){
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                System.out.println(&quot;已删除的 cookie：&quot; + 
+                        cookie.getName( ));
+           }
+           System.out.println(&quot;名称：&quot; + cookie.getName( ) + &quot;,&quot;);
+           System.out.println(&quot;值：&quot; +  URLDecoder.decode(cookie.getValue(), &quot;utf-8&quot;));
+        }
+     }
+}
+//设置Cookie
+private void setCookie(HttpServletRequest request,
+        HttpServletResponse response) throws UnsupportedEncodingException,
+        IOException {
+    // 为名字和姓氏创建 Cookie      
+        Cookie name = new Cookie(&quot;name&quot;,
+                URLEncoder.encode(request.getParameter(&quot;name&quot;), &quot;UTF-8&quot;)); // 中文转码
+        Cookie url = new Cookie(&quot;url&quot;,
+                      request.getParameter(&quot;url&quot;));
+
+        // 为两个 Cookie 设置过期日期为 24 小时后
+        name.setMaxAge(60*60*24); 
+        url.setMaxAge(60*60*24); 
+
+        // 在响应头中添加两个 Cookie
+        response.addCookie(name);
+        response.addCookie(url);
+
+        // 设置响应内容类型
+        response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+
+        System.out.println(request.getParameter(&quot;name&quot;));
+        System.out.println(request.getParameter(&quot;url&quot;) );
+}
+
+}
+</code></pre><p>html文件：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form action=servlet/cookie01 method=&quot;GET&quot;&gt;
+站点名 ：&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
+&lt;br /&gt;
+站点 URL：&lt;input type=&quot;text&quot; name=&quot;url&quot; /&gt;&lt;br&gt;
+&lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h1 id="文件下载："><a href="#文件下载：" class="headerlink" title="文件下载："></a>文件下载：</h1><p>java文件：</p>
+<pre><code>import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+/**
+ * 文件下载
+ * @author tianq
+ *
+ */
+public class ServletDemo5 extends HttpServlet {
+
+public void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+
+    doPost(request,response);
+}
+
+public void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+   //通过路径得到一个输入流
+    String path = this.getServletContext().getRealPath(&quot;WEB-INF/classes/美景.jpg&quot;);
+    FileInputStream fis = new FileInputStream(path);
+    //创建字节输出流
+    ServletOutputStream sos = response.getOutputStream();
+    //得到要下载的文件名
+    String fileName = path.substring(path.lastIndexOf(&quot;\\&quot;)+1);
+    //设置文件名编码
+    fileName = URLEncoder.encode(fileName, &quot;UTF-8&quot;);
+    //告知客户端下载
+    response.setHeader(&quot;content-disposition&quot;, &quot;attachment;filename=&quot;+fileName);
+    response.setHeader(&quot;content-type&quot;, &quot;image/jpeg&quot;);
+    //执行输出操作
+    int len = 1;
+    byte[] b = new byte[1024];
+    while ((len=fis.read(b))!=-1) {
+        sos.write(b, 0, len);
+
+    }
+
+}
+
+}
+</code></pre></the></excerpt>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/03/25/JAVA之Servlet/">JAVA学习之Servlet</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Terry Tian</a></p>
+        <p><span>发布时间:</span>2017-03-25, 23:31:16</p>
+        <p><span>最后更新:</span>2017-04-15, 17:25:40</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/25/JAVA之Servlet/" title="JAVA学习之Servlet">http://tianqing.work/2017/03/25/JAVA之Servlet/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://tianqing.work/2017/03/25/JAVA之Servlet/　　作者: Terry Tian" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/03/29/JAVA学习之Jsp/">
+                    JAVA学习之Jsp
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/03/24/常用的专业搜索工具（分类/">
+                    常用的专业搜索工具（分类)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Servlet-简介"><span class="toc-number">1.</span> <span class="toc-text">Servlet 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Servlet-生命周期"><span class="toc-number">2.</span> <span class="toc-text">Servlet 生命周期</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-状态码"><span class="toc-number">3.</span> <span class="toc-text">HTTP 状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#设置-HTTP-状态代码的方法"><span class="toc-number">3.1.</span> <span class="toc-text">设置 HTTP 状态代码的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-状态码实例"><span class="toc-number">3.2.</span> <span class="toc-text">HTTP 状态码实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cookie"><span class="toc-number">4.</span> <span class="toc-text">Cookie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件下载："><span class="toc-number">5.</span> <span class="toc-text">文件下载：</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JAVA学习之Servlet　| Terry_Tian's Code日志　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/03/29/JAVA学习之Jsp/" title="上一篇: JAVA学习之Jsp">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/03/24/常用的专业搜索工具（分类/" title="下一篇: 常用的专业搜索工具（分类)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/18/photo/">photo</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/多个maven项目启动顺序/">多个maven项目启动顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/Java单例模式的5种实现方法/">Java单例模式的5种实现方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/05/1.初识RabbitMQ/">1.初识RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/18/软件分享篇/">软件分享篇（Windows10）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/Git常用命令汇总/">Git常用命令汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/20/eclipse常用快捷键整理/">eclipse常用快捷键整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/09/使用Oracle SQL Developer连接mysql数据库/">使用Oracle SQL Developer连接mysql数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/常用工具的环境变量配置/">常用"工具"配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Android中布局保存成图片/">Android中布局保存成图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/RecyclerView的万能分割线/">RecyclerView的万能分割线</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/Volley-请求返回数据中文出现乱码/">Volley 请求返回数据中文出现乱码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/java-int类型转换成String-不足10位在前面补0/">java int类型转换成String,不足10位在前面补0</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Android卸载测试应用后再次安装应用失败/">Android卸载测试应用后再次安装应用失败</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/20/JAVA学习之Struts2框架-二/">JAVA学习之Struts2框架(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/16/ADB命令简单使用技巧（Android）/">ADB的简单使用技巧（Android）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之Struts2框架/">JAVA学习之Struts2框架（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之框架前述/">JAVA学习之框架前述</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/02/JAVA学习之常用的数据源配置/">JAVA学习之常用的数据源配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/JAVA学习之Jsp/">JAVA学习之Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/JAVA之Servlet/">JAVA学习之Servlet</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/常用的专业搜索工具（分类/">常用的专业搜索工具（分类)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JDBC/">JAVA学习之JDBC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JUnit/">JAVA学习之JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/21/JAVA学习之MySQL/">JAVA学习之MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/使用Hexo-github建设个人博客教程/">使用Hexo+github建设个人博客教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/DEMO1/">测试二</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2020 Terry Tian
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Terry Tian" />
+
+
+
+<meta name="description" content="本文主要记录MySQL数据库的简单使用。本部分记录了MySQL的安装、卸载，SQL语句的基础。
+转载请注明：转载于Terry Tian的博客（www.mutouspace.cn）!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA学习之MySQL">
+<meta property="og:url" content="http://tianqing.work/2017/03/21/JAVA学习之MySQL/index.html">
+<meta property="og:site_name" content="Terry_Tian's Code日志">
+<meta property="og:description" content="本文主要记录MySQL数据库的简单使用。本部分记录了MySQL的安装、卸载，SQL语句的基础。
+转载请注明：转载于Terry Tian的博客（www.mutouspace.cn）!">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8716.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8718.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8719.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8720.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png">
+<meta property="og:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8722.png">
+<meta property="og:updated_time" content="2017-03-22T12:32:51.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA学习之MySQL">
+<meta name="twitter:description" content="本文主要记录MySQL数据库的简单使用。本部分记录了MySQL的安装、卸载，SQL语句的基础。
+转载请注明：转载于Terry Tian的博客（www.mutouspace.cn）!">
+<meta name="twitter:image" content="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Terry_Tian&#39;s Code日志" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JAVA学习之MySQL | Terry_Tian&#39;s Code日志</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Terry Tian</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行是知之始，知是行之成。</p>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于JAVA</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Terry Tian</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Terry Tian</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行是知之始，知是行之成。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JAVA学习之MySQL" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/21/JAVA学习之MySQL/" class="article-date">
+      <time datetime="2017-03-21T13:52:33.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA学习之MySQL
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <excerpt in="" index="" |="" 首页摘要="">
+
+<blockquote>
+<p>本文主要记录MySQL数据库的简单使用。<br>本部分记录了MySQL的安装、卸载，SQL语句的基础。</p>
+<p>转载请注明：转载于Terry Tian的博客（<a href="www.mutouspace.cn">www.mutouspace.cn</a>）!</p>
+</blockquote>
+<a id="more"></a> 
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h1 id="数据库概述"><a href="#数据库概述" class="headerlink" title="数据库概述"></a>数据库概述</h1><p><strong>数据库（DataBase，DB）：</strong>指长期保存在计算机的存储设备上，按照一定规则组织起来，可以被各种用户或应用共享的数据集合。(文件系统)</p>
+<p><strong>数据库管理系统（DataBase Management System，DBMS）：</strong>指一种操作和管理数据库的大型软件，用于建立、使用和维护数据库，对数据库进行统一管理和控制，以保证数据库的安全性和完整性。用户通过数据库管理系统访问数据库中的数据。</p>
+<p><em>数据库软件应该为数据库管理系统，数据库是通过数据库管理系统创建和操作的。</em></p>
+<blockquote>
+<p>数据库：存储、维护和管理数据的集合。</p>
+</blockquote>
+<h1 id="数据库的安装与配置"><a href="#数据库的安装与配置" class="headerlink" title="数据库的安装与配置"></a>数据库的安装与配置</h1><h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%871.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%872.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%873.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%874.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%875.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%876.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%877.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%878.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%879.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8710.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8711.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8712.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8713.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8714.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8715.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8716.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8717.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8718.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8719.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8720.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8721.png" alt=""></p>
+<p><img src="http://olg3gwtbm.bkt.clouddn.com/%E5%9B%BE%E7%89%8722.png" alt=""></p>
+<h2 id="卸载与修改密码"><a href="#卸载与修改密码" class="headerlink" title="卸载与修改密码"></a>卸载与修改密码</h2><p><strong>卸载：</strong></p>
+<ol>
+<li><p>停止mysql服务   net stop mysql       启动mysql服务  net start mysql</p>
+</li>
+<li><p>卸载mysql</p>
+</li>
+<li><p>找到mysql 安装目录下的 my.ini   datadir=”C:/ProgramData/MySQL/MySQL Server 5.5/Data/“</p>
+</li>
+</ol>
+<p><strong>修改密码</strong></p>
+<p>运行cmd</p>
+<p> 安装成功了打开cmd  –&gt; mysql -uroot -p你的密码</p>
+<p> 修改mysql root用户密码</p>
+<p>1) 停止mysql服务 运行输入services.msc 停止mysql服务</p>
+<pre><code>或者 cmd --&gt;  net stop mysql
+</code></pre><p>2) 在cmd下 输入 mysqld –skip-grant-tables 启动服务器 光标不动 （不要关闭该窗口）</p>
+<p>3) 新打开cmd 输入mysql -u root -p 不需要密码 </p>
+<pre><code>use mysql;
+
+update user set password=password(&apos;abc&apos;) WHERE User=&apos;root&apos;;
+</code></pre><p>4) 关闭两个cmd窗口 在任务管理器结束mysqld 进程 </p>
+<p>5) 在服务管理页面 重启mysql 服务</p>
+<p>密码修改完成</p>
+<h1 id="sql概述"><a href="#sql概述" class="headerlink" title="sql概述"></a>sql概述</h1><blockquote>
+<p>SQL：Structure Query Language。（结构化查询语言）</p>
+</blockquote>
+<h1 id="Sql的分类"><a href="#Sql的分类" class="headerlink" title="Sql的分类"></a>Sql的分类</h1><p><strong>DDL（Data Definition Language）：</strong>数据定义语言，用来定义数据库对象：库、表、列等；     CREATE、 ALTER、DROP</p>
+<p><strong>DML（Data Manipulation Language）：</strong>数据操作语言，用来定义数据库记录（数据）；        INSERT、 UPDATE、 DELETE</p>
+<p><strong>DCL（Data Control Language）：</strong>数据控制语言，用来定义访问权限和安全级别；</p>
+<p><strong>DQL（Data Query Language）：</strong>数据查询语言，用来查询记录（数据）。SELECT</p>
+<p><strong>注意：sql语句以;结尾</strong></p>
+<h2 id="DDL-操作数据库、表、列等"><a href="#DDL-操作数据库、表、列等" class="headerlink" title="DDL:操作数据库、表、列等"></a>DDL:操作数据库、表、列等</h2><blockquote>
+<p>使用的关键字：CREATE、 ALTER、 DROP</p>
+</blockquote>
+<p><strong>example:</strong></p>
+<pre><code>CREATE TABLE emp (
+id INT,
+NAME VARCHAR(50),
+gender VARCHAR(10),
+birthday DATE,
+entry_date DATE,
+job VARCHAR(100),
+salary DOUBLE,
+RESUME VARCHAR(200)
+);
+-- 查看表的字段信息
+DESC emp;
+-- 在emp TABLE中添加image列
+ALTER TABLE emp ADD image BLOB;
+-- 修改job列，使其长度为60。
+ALTER TABLE emp MODIFY job VARCHAR(60);
+-- 删除image列,一次只能删一列。
+ALTER TABLE emp DROP image;
+-- 表名改为USER。
+RENAME TABLE emp TO USER;
+-- 查看表格的创建细节
+SHOW CREATE TABLE USER;
+-- 修改表的字符集为gbk
+ALTER TABLE USER CHARACTER SET gbk;
+-- 列名NAME修改为username
+ALTER TABLE USER CHANGE NAME username VARCHAR(100);
+
+DESC USER;
+-- 删除表
+DROP TABLE USER ;
+</code></pre><h2 id="DML操作-重要"><a href="#DML操作-重要" class="headerlink" title="DML操作(重要)"></a>DML操作(重要)</h2><h3 id="插入操作：INSERT"><a href="#插入操作：INSERT" class="headerlink" title="插入操作：INSERT"></a>插入操作：INSERT</h3><p><strong>语法：</strong> INSERT INTO 表名（列名1，列名2 …）VALUES(列值1，列值2…);<br><strong>注意：</strong>列名与列值的类型、个数、顺序要一一对应。</p>
+<p>可以把列名当做java中的形参，把列值当做实参。</p>
+<p>值不要超出列定义的长度。</p>
+<p>如果插入空值，请使用null</p>
+<p>插入的日期和字符一样，都使用引号括起来。</p>
+<p><strong>练习 ：</strong></p>
+<pre><code>create table emp(
+id int,
+name varchar(100),
+gender varchar(10),
+birthday date,
+salary float(10,2),
+entry_date date,
+resume text
+);
+
+INSERT INTO emp(id,name,gender,birthday,salary,entry_date,resume)
+VALUES(1,&apos;zhangsan&apos;,&apos;female&apos;,&apos;1990-5-10&apos;,10000,&apos;2015-5-5-&apos;,&apos;good girl&apos;);
+
+INSERT INTO emp(id,name,gender,birthday,salary,entry_date,resume)
+VALUES(2,&apos;lisi&apos;,&apos;male&apos;,&apos;1995-5-10&apos;,10000,&apos;2015-5-5&apos;,&apos;good boy&apos;);
+
+INSERT INTO emp(id,name,gender,birthday,salary,entry_date,resume)
+VALUES(3,&apos;wangwu&apos;,&apos;male&apos;,&apos;1995-5-10&apos;,10000,&apos;2015-5-5&apos;,&apos;good boy&apos;);
+
+-- 批量插入：
+INSERT INTO emp VALUES
+(4,&apos;zs&apos;,&apos;m&apos;,&apos;2015-09-01&apos;,10000,&apos;2015-09-01&apos;,NULL),
+(5,&apos;li&apos;,&apos;m&apos;,&apos;2015-09-01&apos;,10000,&apos;2015-09-01&apos;,NULL),
+(6,&apos;ww&apos;,&apos;m&apos;,&apos;2015-09-01&apos;,10000,&apos;2015-09-01&apos;,NULL);
+</code></pre><h3 id="修改操作-UPDATE"><a href="#修改操作-UPDATE" class="headerlink" title="修改操作 UPDATE"></a>修改操作 UPDATE</h3><p><strong>语法：</strong>UPDATE 表名 SET 列名1=列值1，列名2=列值2 。。。 WHERE 列名=值</p>
+<p><strong>练习 ：</strong></p>
+<pre><code>-- 将所有员工薪水修改为5000元。
+UPDATE emp SET salary=5000 
+-- 将姓名为’tom’的员工薪水修改为3000元。
+UPDATE emp SET salary=3000 WHERE NAME=&apos;tom&apos;;
+-- 将姓名为’jerry’的员工薪水修改为4000元,gender改为female。
+ UPDATE emp SET salary=4000,gender=&apos;female&apos; WHERE NAME=&apos;jerry&apos;;
+-- 将蔡依林的薪水在原有基础上增加1000元。
+ UPDATE emp SET salary=salary+1000 WHERE NAME = &apos;蔡依林&apos;;
+</code></pre><h3 id="删除操作-DELETE"><a href="#删除操作-DELETE" class="headerlink" title="删除操作 DELETE"></a>删除操作 DELETE</h3><p><strong>语法 ：</strong> DELETE FROM 表名 【WHERE 列名=值】</p>
+<p><strong>练习 ：</strong></p>
+<pre><code>-- 删除表中名称为’zs’的记录。
+DELETE FROM emp WHERE NAME=‘tom’;
+-- 删除表中所有记录。
+DELETE FROM emp;
+-- 使用truncate删除表中记录。
+TRUNCATE TABLE emp;
+</code></pre><blockquote>
+<p>DELETE 删除表中的数据，表结构还在;删除后的数据可以找回<br> TRUNCATE 删除是把表直接DROP掉，然后再创建一个同样的新表。<br> 删除的数据不能找回。执行速度比DELETE快。</p>
+</blockquote>
+<h2 id="DQL操作"><a href="#DQL操作" class="headerlink" title="DQL操作"></a>DQL操作</h2><blockquote>
+<p>DQL数据查询语言 （重要）<br>数据库执行DQL语句不会对数据进行改变，而是让数据库发送结果集给客户端。<br>查询返回的结果集是一张虚拟表。</p>
+</blockquote>
+<p><strong>查询关键字：</strong>SELECT<br><strong>语法：</strong> SELECT 列名 FROM表名<br>【WHERE –&gt; GROUP BY –&gt;HAVING–&gt; ORDER BY】</p>
+<p><strong>语法：</strong></p>
+<pre><code>SELECT selection_list /*要查询的列名称*/
+FROM table_list /*要查询的表名称*/
+WHERE condition /*行条件*/
+GROUP BY grouping_columns /*对结果分组*/
+HAVING condition /*分组后的行条件*/
+ORDER BY sorting_columns /*对结果分组*/
+LIMIT offset_start, row_count /*结果限定*/
+</code></pre><p>开始之前让我们先建几个表并插入数据</p>
+<pre><code>CREATE TABLE stu (
+    sid    CHAR(6),
+    sname        VARCHAR(50),
+    age        INT,
+    gender    VARCHAR(50)
+);
+
+INSERT INTO stu VALUES(&apos;S_1001&apos;, &apos;liuYi&apos;, 35, &apos;male&apos;);
+INSERT INTO stu VALUES(&apos;S_1002&apos;, &apos;chenEr&apos;, 15, &apos;female&apos;);
+INSERT INTO stu VALUES(&apos;S_1003&apos;, &apos;zhangSan&apos;, 95, &apos;male&apos;);
+INSERT INTO stu VALUES(&apos;S_1004&apos;, &apos;liSi&apos;, 65, &apos;female&apos;);
+INSERT INTO stu VALUES(&apos;S_1005&apos;, &apos;wangWu&apos;, 55, &apos;male&apos;);
+INSERT INTO stu VALUES(&apos;S_1006&apos;, &apos;zhaoLiu&apos;, 75, &apos;female&apos;);
+INSERT INTO stu VALUES(&apos;S_1007&apos;, &apos;sunQi&apos;, 25, &apos;male&apos;);
+INSERT INTO stu VALUES(&apos;S_1008&apos;, &apos;zhouBa&apos;, 45, &apos;female&apos;);
+INSERT INTO stu VALUES(&apos;S_1009&apos;, &apos;wuJiu&apos;, 85, &apos;male&apos;);
+INSERT INTO stu VALUES(&apos;S_1010&apos;, &apos;zhengShi&apos;, 5, &apos;female&apos;);
+INSERT INTO stu VALUES(&apos;S_1011&apos;, &apos;xxx&apos;, NULL, NULL);
+
+
+CREATE TABLE emp(
+    empno        INT,
+    ename        VARCHAR(50),
+    job        VARCHAR(50),
+    mgr        INT,
+    hiredate    DATE,
+    sal        DECIMAL(7,2),
+    comm        DECIMAL(7,2),
+    deptno        INT
+) ;
+
+INSERT INTO emp VALUES(7369,&apos;SMITH&apos;,&apos;CLERK&apos;,7902,&apos;1980-12-17&apos;,800,NULL,20);
+INSERT INTO emp VALUES(7499,&apos;ALLEN&apos;,&apos;SALESMAN&apos;,7698,&apos;1981-02-20&apos;,1600,300,30);
+INSERT INTO emp VALUES(7521,&apos;WARD&apos;,&apos;SALESMAN&apos;,7698,&apos;1981-02-22&apos;,1250,500,30);
+INSERT INTO emp VALUES(7566,&apos;JONES&apos;,&apos;MANAGER&apos;,7839,&apos;1981-04-02&apos;,2975,NULL,20);
+INSERT INTO emp VALUES(7654,&apos;MARTIN&apos;,&apos;SALESMAN&apos;,7698,&apos;1981-09-28&apos;,1250,1400,30);
+INSERT INTO emp VALUES(7698,&apos;BLAKE&apos;,&apos;MANAGER&apos;,7839,&apos;1981-05-01&apos;,2850,NULL,30);
+INSERT INTO emp VALUES(7782,&apos;CLARK&apos;,&apos;MANAGER&apos;,7839,&apos;1981-06-09&apos;,2450,NULL,10);
+INSERT INTO emp VALUES(7788,&apos;SCOTT&apos;,&apos;ANALYST&apos;,7566,&apos;1987-04-19&apos;,3000,NULL,20);
+INSERT INTO emp VALUES(7839,&apos;KING&apos;,&apos;PRESIDENT&apos;,NULL,&apos;1981-11-17&apos;,5000,NULL,10);
+INSERT INTO emp VALUES(7844,&apos;TURNER&apos;,&apos;SALESMAN&apos;,7698,&apos;1981-09-08&apos;,1500,0,30);
+INSERT INTO emp VALUES(7876,&apos;ADAMS&apos;,&apos;CLERK&apos;,7788,&apos;1987-05-23&apos;,1100,NULL,20);
+INSERT INTO emp VALUES(7900,&apos;JAMES&apos;,&apos;CLERK&apos;,7698,&apos;1981-12-03&apos;,950,NULL,30);
+INSERT INTO emp VALUES(7902,&apos;FORD&apos;,&apos;ANALYST&apos;,7566,&apos;1981-12-03&apos;,3000,NULL,20);
+INSERT INTO emp VALUES(7934,&apos;MILLER&apos;,&apos;CLERK&apos;,7782,&apos;1982-01-23&apos;,1300,NULL,10);
+
+
+CREATE TABLE dept(
+    deptno        INT,
+    dname        VARCHAR(14),
+    loc        VARCHAR(13)
+);
+
+INSERT INTO dept VALUES(10, &apos;ACCOUNTING&apos;, &apos;NEW YORK&apos;);
+INSERT INTO dept VALUES(20, &apos;RESEARCH&apos;, &apos;DALLAS&apos;);
+INSERT INTO dept VALUES(30, &apos;SALES&apos;, &apos;CHICAGO&apos;);
+INSERT INTO dept VALUES(40, &apos;OPERATIONS&apos;, &apos;BOSTON&apos;);
+</code></pre><h3 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h3><p>1.1　查询所有列</p>
+<pre><code>SELECT * FROM stu;
+</code></pre><p>1.2　查询指定列</p>
+<pre><code>SELECT sid, sname, age FROM stu;
+</code></pre><h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3><pre><code>-- 查询性别为女，并且年龄&gt;=50的记录
+SELECT * FROM stu WHERE gender=&apos;female&apos; AND age &gt;=50;
+
+-- 查询学号为S_1001，或者姓名为liSi的记录
+SELECT * FROM stu 
+WHERE sid =&apos;S_1001&apos; OR sname=&apos;liSi&apos;;
+
+-- 查询学号为S_1001，S_1002，S_1003的记录
+SELECT * FROM stu 
+WHERE sid IN (&apos;S_1001&apos;,&apos;S_1002&apos;,&apos;S_1003&apos;);
+
+-- 查询学号不是S_1001，S_1002，S_1003的记录
+SELECT * FROM stu 
+WHERE sid NOT IN (&apos;S_1001&apos;,&apos;S_1002&apos;,&apos;S_1003&apos;);
+
+-- 查询年龄为null的记录
+SELECT * FROM stu
+WHERE age IS NULL;
+
+-- 查询年龄在20到40之间的学生记录
+SELECT * 
+FROM stu
+WHERE age&gt;=20 AND age&lt;=40;
+-- 或者
+SELECT * 
+FROM stu 
+WHERE age BETWEEN 20 AND 40;
+
+-- 查询性别非男的学生记录
+SELECT * 
+FROM stu
+WHERE gender!=&apos;male&apos;;
+-- 或者
+SELECT * 
+FROM stu
+WHERE gender&lt;&gt;&apos;male&apos;;
+-- 或者
+SELECT * 
+FROM stu
+WHERE NOT gender=&apos;male&apos;;
+
+-- 查询姓名不为null的学生记录
+
+SELECT * FROM stu WHERE sname IS NOT NULL;
+</code></pre><h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><blockquote>
+<p>当想查询姓名中包含a字母的学生时就需要使用模糊查询了。模糊查询需要使用关键字LIKE。</p>
+</blockquote>
+<p><strong>通配符:</strong> </p>
+<pre><code>_ ：任意一个字符
+
+  % ：任意0~n个字符
+</code></pre><p><strong>Example:</strong></p>
+<pre><code>-- 查询姓名由5个字母构成的学生记录
+SELECT * 
+FROM stu
+WHERE sname LIKE &apos;_____&apos;;
+-- 模糊查询必须使用LIKE关键字。其中 “_”匹配任意一个字母，5个“_”表示5个任意字母。
+
+-- 3.2　查询姓名由5个字母构成，并且第5个字母为“i”的学生记录
+SELECT * 
+FROM stu
+WHERE sname LIKE &apos;____i&apos;;
+
+-- 3.3　查询姓名以“z”开头的学生记录
+SELECT * 
+FROM stu
+WHERE sname LIKE &apos;z%&apos;;
+-- 其中“%”匹配0~n个任何字母。
+
+-- 3.4　查询姓名中第2个字母为“i”的学生记录
+SELECT * 
+FROM stu
+WHERE sname LIKE &apos;_i%&apos;;
+
+-- 3.5　查询姓名中包含“a”字母的学生记录
+SELECT * 
+FROM stu
+WHERE sname LIKE &apos;%a%&apos;;
+</code></pre><h3 id="字段控制查询"><a href="#字段控制查询" class="headerlink" title="字段控制查询"></a>字段控制查询</h3><pre><code>SELECT * FROM emp;
+-- 去除重复记录
+SELECT DISTINCT deptno,mgr FROM emp;
+
+-- 查看雇员的月薪与佣金之和
+SELECT * ,sal+comm FROM emp;
+-- 过滤null 并起别名
+SELECT * ,sal+IFNULL(comm,0) AS total FROM emp;
+</code></pre><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><blockquote>
+<p>order by 列名 asc(默认) desc</p>
+</blockquote>
+<pre><code>-- 查询所有学生记录，按年龄升序排序
+SELECT * FROM stu ORDER BY age ASC;
+-- 查询所有学生记录，按年龄降序排序
+SELECT * FROM stu ORDER BY age DESC;
+-- 查询所有雇员，按月薪降序排序，如果月薪相同时，按编号升序排序
+SELECT * FROM emp
+ORDER BY sal DESC,empno ASC;
+</code></pre><h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3><blockquote>
+<p>聚合函数是用来做纵向运算的函数：</p>
+<p>COUNT()：统计指定列不为NULL的记录行数；</p>
+<p>MAX()：计算指定列的最大值，如果指定列是字符串类型，那么使用字符串排序运算；</p>
+<p>MIN()：计算指定列的最小值，如果指定列是字符串类型，那么使用字符串排序运算；</p>
+<p>SUM()：计算指定列的数值和，如果指定列类型不是数值类型，那么计算结果为0；</p>
+<p>AVG()：计算指定列的平均值，如果指定列类型不是数值类型，那么计算结果为0；</p>
+</blockquote>
+<pre><code>-- 查询emp表中记录数：
+SELECT COUNT(*) AS cnt FROM emp;
+
+-- 查询emp表中有佣金的人数：
+SELECT COUNT(comm) cnt FROM emp;
+-- 注意，因为count()函数中给出的是comm列，那么只统计comm列非NULL的行数。
+
+-- 查询emp表中月薪大于2500的人数：
+SELECT COUNT(*) FROM emp
+WHERE sal &gt; 2500;
+
+-- 统计月薪与佣金之和大于2500元的人数：
+SELECT COUNT(*) AS cnt FROM emp WHERE sal+IFNULL(comm,0) &gt; 2500;
+
+-- 查询有佣金的人数，有领导的人数：
+SELECT COUNT(comm), COUNT(mgr) FROM emp;
+
+
+-- 查询所有雇员月薪和：
+SELECT SUM(sal) FROM emp;
+
+-- 查询所有雇员月薪和，以及所有雇员佣金和：
+SELECT SUM(sal), SUM(comm) FROM emp;
+
+-- 查询所有雇员月薪+佣金和：
+SELECT SUM(sal+IFNULL(comm,0)) FROM emp;
+
+-- 统计所有员工平均工资：
+SELECT AVG(sal) FROM emp;
+
+-- MAX和MIN
+-- 查询最高工资和最低工资：
+SELECT MAX(sal), MIN(sal) FROM emp;
+</code></pre><h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><blockquote>
+<p>注：凡和聚合函数同时出现的列名，一定要写在group by 之后</p>
+</blockquote>
+<pre><code>-- 查询每个部门的部门编号和每个部门的工资和：
+SELECT deptno, SUM(sal)
+FROM emp
+GROUP BY deptno;
+
+-- 查询每个部门的部门编号以及每个部门的人数：
+SELECT deptno,COUNT(*)
+FROM emp
+GROUP BY deptno;
+
+-- 查询每个部门的部门编号以及每个部门工资大于1500的人数：
+SELECT deptno,COUNT(*)
+FROM emp
+WHERE sal&gt;1500
+GROUP BY deptno;
+
+-- 查询工资总和大于9000的部门编号以及工资和：
+SELECT deptno, SUM(sal)
+FROM emp
+GROUP BY deptno
+HAVING SUM(sal) &gt; 9000;
+</code></pre><p><strong>注：</strong></p>
+<p>  <em>having与where的区别:</em></p>
+<pre><code>1.having是在分组后对数据进行过滤.
+
+  where是在分组前对数据进行过滤
+
+2.having后面可以使用聚合函数(统计函数)
+
+  where后面不可以使用聚合函数。
+</code></pre><p><em>WHERE是对分组前记录的条件，如果某行记录没有满足WHERE子句的条件，那么这行记录不会参加分组；而HAVING是对分组后数据的约束。</em></p>
+<h3 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h3><blockquote>
+<p>LIMIT用来限定查询结果的起始行，以及总行数。</p>
+</blockquote>
+<pre><code>-- 查询5行记录，起始行从0开始
+SELECT * FROM emp LIMIT 0, 5;
+-- 查询10行记录，起始行从3开始
+SELECT * FROM emp LIMIT 3, 10;
+</code></pre></the></excerpt>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/03/21/JAVA学习之MySQL/">JAVA学习之MySQL</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Terry Tian</a></p>
+        <p><span>发布时间:</span>2017-03-21, 21:52:33</p>
+        <p><span>最后更新:</span>2017-03-22, 20:32:51</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/21/JAVA学习之MySQL/" title="JAVA学习之MySQL">http://tianqing.work/2017/03/21/JAVA学习之MySQL/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://tianqing.work/2017/03/21/JAVA学习之MySQL/　　作者: Terry Tian" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/03/22/JAVA学习之JUnit/">
+                    JAVA学习之JUnit
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/18/使用Hexo-github建设个人博客教程/">
+                    使用Hexo+github建设个人博客教程
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库概述"><span class="toc-number">1.</span> <span class="toc-text">数据库概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库的安装与配置"><span class="toc-number">2.</span> <span class="toc-text">数据库的安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装与配置"><span class="toc-number">2.1.</span> <span class="toc-text">安装与配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卸载与修改密码"><span class="toc-number">2.2.</span> <span class="toc-text">卸载与修改密码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql概述"><span class="toc-number">3.</span> <span class="toc-text">sql概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sql的分类"><span class="toc-number">4.</span> <span class="toc-text">Sql的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DDL-操作数据库、表、列等"><span class="toc-number">4.1.</span> <span class="toc-text">DDL:操作数据库、表、列等</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DML操作-重要"><span class="toc-number">4.2.</span> <span class="toc-text">DML操作(重要)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#插入操作：INSERT"><span class="toc-number">4.2.1.</span> <span class="toc-text">插入操作：INSERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改操作-UPDATE"><span class="toc-number">4.2.2.</span> <span class="toc-text">修改操作 UPDATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除操作-DELETE"><span class="toc-number">4.2.3.</span> <span class="toc-text">删除操作 DELETE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL操作"><span class="toc-number">4.3.</span> <span class="toc-text">DQL操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础查询"><span class="toc-number">4.3.1.</span> <span class="toc-text">基础查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件查询"><span class="toc-number">4.3.2.</span> <span class="toc-text">条件查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模糊查询"><span class="toc-number">4.3.3.</span> <span class="toc-text">模糊查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字段控制查询"><span class="toc-number">4.3.4.</span> <span class="toc-text">字段控制查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-number">4.3.5.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合函数"><span class="toc-number">4.3.6.</span> <span class="toc-text">聚合函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组查询"><span class="toc-number">4.3.7.</span> <span class="toc-text">分组查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LIMIT"><span class="toc-number">4.3.8.</span> <span class="toc-text">LIMIT</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JAVA学习之MySQL　| Terry_Tian's Code日志　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/03/22/JAVA学习之JUnit/" title="上一篇: JAVA学习之JUnit">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/18/使用Hexo-github建设个人博客教程/" title="下一篇: 使用Hexo+github建设个人博客教程">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/18/photo/">photo</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/多个maven项目启动顺序/">多个maven项目启动顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/Java单例模式的5种实现方法/">Java单例模式的5种实现方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/05/1.初识RabbitMQ/">1.初识RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/18/软件分享篇/">软件分享篇（Windows10）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/Git常用命令汇总/">Git常用命令汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/20/eclipse常用快捷键整理/">eclipse常用快捷键整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/09/使用Oracle SQL Developer连接mysql数据库/">使用Oracle SQL Developer连接mysql数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/常用工具的环境变量配置/">常用"工具"配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Android中布局保存成图片/">Android中布局保存成图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/RecyclerView的万能分割线/">RecyclerView的万能分割线</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/Volley-请求返回数据中文出现乱码/">Volley 请求返回数据中文出现乱码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/java-int类型转换成String-不足10位在前面补0/">java int类型转换成String,不足10位在前面补0</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Android卸载测试应用后再次安装应用失败/">Android卸载测试应用后再次安装应用失败</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/20/JAVA学习之Struts2框架-二/">JAVA学习之Struts2框架(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/16/ADB命令简单使用技巧（Android）/">ADB的简单使用技巧（Android）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之Struts2框架/">JAVA学习之Struts2框架（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之框架前述/">JAVA学习之框架前述</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/02/JAVA学习之常用的数据源配置/">JAVA学习之常用的数据源配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/JAVA学习之Jsp/">JAVA学习之Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/JAVA之Servlet/">JAVA学习之Servlet</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/常用的专业搜索工具（分类/">常用的专业搜索工具（分类)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JDBC/">JAVA学习之JDBC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JUnit/">JAVA学习之JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/21/JAVA学习之MySQL/">JAVA学习之MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/使用Hexo-github建设个人博客教程/">使用Hexo+github建设个人博客教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/DEMO1/">测试二</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2020 Terry Tian
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

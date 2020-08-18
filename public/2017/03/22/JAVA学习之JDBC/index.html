@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Terry Tian" />
+
+
+
+<meta name="description" content="JDBC概述
+JDBC:java database connectivity SUN公司提供的一套操作数据库的标准规范。
+JDBC与数据库驱动的关系：接口与实现的关系。
+
+JDBC规范（掌握四个核心对象）：
+
+DriverManager:用于注册驱动
+Connection: 表示与数据库创建的连接
+Statement: 操作数据库sql语句的对象
+ResultSet: 结果集或一张虚拟表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA学习之JDBC">
+<meta property="og:url" content="http://tianqing.work/2017/03/22/JAVA学习之JDBC/index.html">
+<meta property="og:site_name" content="Terry_Tian's Code日志">
+<meta property="og:description" content="JDBC概述
+JDBC:java database connectivity SUN公司提供的一套操作数据库的标准规范。
+JDBC与数据库驱动的关系：接口与实现的关系。
+
+JDBC规范（掌握四个核心对象）：
+
+DriverManager:用于注册驱动
+Connection: 表示与数据库创建的连接
+Statement: 操作数据库sql语句的对象
+ResultSet: 结果集或一张虚拟表">
+<meta property="og:updated_time" content="2017-07-13T08:58:14.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA学习之JDBC">
+<meta name="twitter:description" content="JDBC概述
+JDBC:java database connectivity SUN公司提供的一套操作数据库的标准规范。
+JDBC与数据库驱动的关系：接口与实现的关系。
+
+JDBC规范（掌握四个核心对象）：
+
+DriverManager:用于注册驱动
+Connection: 表示与数据库创建的连接
+Statement: 操作数据库sql语句的对象
+ResultSet: 结果集或一张虚拟表">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Terry_Tian&#39;s Code日志" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JAVA学习之JDBC | Terry_Tian&#39;s Code日志</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Terry Tian</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">行是知之始，知是行之成。</p>
+        
+
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于JAVA</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Terry Tian</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Terry Tian</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">行是知之始，知是行之成。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:1015236187@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JAVA学习之JDBC" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/22/JAVA学习之JDBC/" class="article-date">
+      <time datetime="2017-03-22T14:33:39.000Z" itemprop="datePublished">2017-03-22</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JAVA学习之JDBC
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/">JDBC</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <excerpt in="" index="" |="" 首页摘要="">
+
+<h1 id="JDBC概述"><a href="#JDBC概述" class="headerlink" title="JDBC概述"></a>JDBC概述</h1><blockquote>
+<p>JDBC:java database connectivity SUN公司提供的一套操作数据库的标准规范。</p>
+<p>JDBC与数据库驱动的关系：接口与实现的关系。</p>
+</blockquote>
+<p><strong>JDBC规范（掌握四个核心对象）：</strong></p>
+<ul>
+<li>DriverManager:用于注册驱动</li>
+<li>Connection: 表示与数据库创建的连接</li>
+<li>Statement: 操作数据库sql语句的对象</li>
+<li>ResultSet: 结果集或一张虚拟表</li>
+</ul>
+<a id="more"></a> 
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h1 id="开发一个JDBC程序（重要）"><a href="#开发一个JDBC程序（重要）" class="headerlink" title="开发一个JDBC程序（重要）"></a>开发一个JDBC程序（重要）</h1><ol>
+<li><p>创建数据库表，并向表中添加测试数据 </p>
+<pre><code>&lt;--创建数据库--&gt;
+create database mytest1;
+use mytest1;
+&lt;--创建数据库表--&gt;
+create table users(
+id int primary key auto_increment,
+name varchar(40),
+password varchar(40),
+email varchar(60),
+birthday date
+ )character set utf8 collate utf8_general_ci;
+&lt;--添加数据--&gt;
+insert into users(name,password,email,birthday) values(&apos;zs&apos;,&apos;123456&apos;,&apos;zs@sina.com&apos;,&apos;1980-12-04&apos;);
+insert into users(name,password,email,birthday) values(&apos;lisi&apos;,&apos;123456&apos;,&apos;lisi@sina.com&apos;,&apos;1981-12-04&apos;);
+insert into users(name,password,email,birthday) values(&apos;wangwu&apos;,&apos;123456&apos;,&apos;wangwu@sina.com&apos;,&apos;1979-12-04&apos;);
+</code></pre></li>
+<li><p>创建java project项目，添加数据库驱动（*.jar）</p>
+</li>
+<li><p>实现JDBC操作</p>
+<pre><code>- 注册驱动
+- 创建连接
+- 得到执行sql语句的Statement对象
+- 执行sql语句，并返回结果
+- 处理结果
+- 关闭资源
+</code></pre><p><strong>example:</strong></p>
+<pre><code>   public class demo01 {
+
+   public static void main(String[] args) throws Exception{
+ // TODO Auto-generated method stub
+ //1、注册驱动
+ //DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+ //1.加载驱动
+  Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+  //2、创建连接
+ Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/mytest1&quot;, &quot;root&quot;, &quot;root&quot;);
+         //3、得到执行sql语句的Statement对象
+ Statement stmt = conn.createStatement();
+         //4、执行sql语句，并返回结果
+ String sql = &quot;select id,name,password,email,birthday from users&quot;;
+ ResultSet rs = stmt.executeQuery(sql);
+         //5、处理结果
+ while (rs.next()) {
+             System.out.println(rs.getObject(1));
+             System.out.println(rs.getObject(2));
+             System.out.println(rs.getObject(3));
+             System.out.println(rs.getObject(4));
+             System.out.println(rs.getObject(5));
+         }
+         //6关闭资源
+ rs.close();
+ stmt.close();
+ conn.close();
+}
+
+}
+</code></pre></li>
+</ol>
+<h1 id="JDBC常用的类和接口详解"><a href="#JDBC常用的类和接口详解" class="headerlink" title="JDBC常用的类和接口详解"></a>JDBC常用的类和接口详解</h1><h2 id="java-sql-Drivermanager类-创建连接"><a href="#java-sql-Drivermanager类-创建连接" class="headerlink" title="java.sql.Drivermanager类 : 创建连接"></a>java.sql.Drivermanager类 : 创建连接</h2><ol>
+<li><p>注册驱动</p>
+<p>DriverManager.registerDriver(new com.mysql.jdbc.Driver());不建议使用<br>原因有2个：</p>
+<ul>
+<li>导致驱动被注册2次。</li>
+<li>强烈依赖数据库的驱动jar</li>
+</ul>
+</li>
+</ol>
+<p>   解决办法：</p>
+<pre><code>用Class.forName(&quot;com.mysql.jdbc.Driver&quot;);代替。
+</code></pre><ol>
+<li><p>与数据库建立连接</p>
+<pre><code>static Connection getConnection(String url, String user, String password) 
+
+getConnection(&quot;jdbc:mysql://localhost:3306/mytest1&quot;, &quot;root&quot;, &quot;root&quot;);
+
+URL:SUN公司与数据库厂商之间的一种协议。
+jdbc:mysql://localhost:3306/day06
+协议 子协议          IP:端口号 数据库
+
+mysql: jdbc:mysql://localhost:3306/day14 或者 jdbc:mysql:///day14（默认本机连接）
+oracle: jdbc:oracle:thin:@localhost:1521:sid
+</code></pre></li>
+</ol>
+<pre><code>Properties info = new Properties();//要参考数据库文档
+info.setProperty(&quot;user&quot;, &quot;root&quot;);
+info.setProperty(&quot;password&quot;,&quot;root&quot;);
+
+getConnection(String url, Properties info) 
+
+getConnection(String url) 
+DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/day14?user=root&amp;password=root&quot;);
+</code></pre><h1 id="实现一个用户登录的功能"><a href="#实现一个用户登录的功能" class="headerlink" title="实现一个用户登录的功能"></a>实现一个用户登录的功能</h1><p>Demo:<a href="https://github.com/MuTouTQ/JavaExamples" target="_blank" rel="external">https://github.com/MuTouTQ/login</a></p>
+</the></excerpt>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/03/22/JAVA学习之JDBC/">JAVA学习之JDBC</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Terry Tian</a></p>
+        <p><span>发布时间:</span>2017-03-22, 22:33:39</p>
+        <p><span>最后更新:</span>2017-07-13, 16:58:14</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/22/JAVA学习之JDBC/" title="JAVA学习之JDBC">http://tianqing.work/2017/03/22/JAVA学习之JDBC/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://tianqing.work/2017/03/22/JAVA学习之JDBC/　　作者: Terry Tian" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/03/24/常用的专业搜索工具（分类/">
+                    常用的专业搜索工具（分类)
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/03/22/JAVA学习之JUnit/">
+                    JAVA学习之JUnit
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC概述"><span class="toc-number">1.</span> <span class="toc-text">JDBC概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开发一个JDBC程序（重要）"><span class="toc-number">2.</span> <span class="toc-text">开发一个JDBC程序（重要）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDBC常用的类和接口详解"><span class="toc-number">3.</span> <span class="toc-text">JDBC常用的类和接口详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#java-sql-Drivermanager类-创建连接"><span class="toc-number">3.1.</span> <span class="toc-text">java.sql.Drivermanager类 : 创建连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现一个用户登录的功能"><span class="toc-number">4.</span> <span class="toc-text">实现一个用户登录的功能</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JAVA学习之JDBC　| Terry_Tian's Code日志　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/03/24/常用的专业搜索工具（分类/" title="上一篇: 常用的专业搜索工具（分类)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/03/22/JAVA学习之JUnit/" title="下一篇: JAVA学习之JUnit">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/18/photo/">photo</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/多个maven项目启动顺序/">多个maven项目启动顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/17/Java单例模式的5种实现方法/">Java单例模式的5种实现方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/05/1.初识RabbitMQ/">1.初识RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/18/软件分享篇/">软件分享篇（Windows10）</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/Git常用命令汇总/">Git常用命令汇总</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/20/eclipse常用快捷键整理/">eclipse常用快捷键整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/09/使用Oracle SQL Developer连接mysql数据库/">使用Oracle SQL Developer连接mysql数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/常用工具的环境变量配置/">常用"工具"配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/12/Android中布局保存成图片/">Android中布局保存成图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/RecyclerView的万能分割线/">RecyclerView的万能分割线</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/Volley-请求返回数据中文出现乱码/">Volley 请求返回数据中文出现乱码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/09/java-int类型转换成String-不足10位在前面补0/">java int类型转换成String,不足10位在前面补0</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/03/Android卸载测试应用后再次安装应用失败/">Android卸载测试应用后再次安装应用失败</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/20/JAVA学习之Struts2框架-二/">JAVA学习之Struts2框架(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/16/ADB命令简单使用技巧（Android）/">ADB的简单使用技巧（Android）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之Struts2框架/">JAVA学习之Struts2框架（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/JAVA学习之框架前述/">JAVA学习之框架前述</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/02/JAVA学习之常用的数据源配置/">JAVA学习之常用的数据源配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/29/JAVA学习之Jsp/">JAVA学习之Jsp</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/JAVA之Servlet/">JAVA学习之Servlet</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/常用的专业搜索工具（分类/">常用的专业搜索工具（分类)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JDBC/">JAVA学习之JDBC</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/22/JAVA学习之JUnit/">JAVA学习之JUnit</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/21/JAVA学习之MySQL/">JAVA学习之MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/使用Hexo-github建设个人博客教程/">使用Hexo+github建设个人博客教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/DEMO1/">测试二</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2020 Terry Tian
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
